@@ -11,10 +11,34 @@
 // con difficoltà 1 =>  tra 1 e 80
 // con difficoltà 2 => tra 1 e 50
 
+
+// *** VARIANTE BONUS ***//
+// Inizializzo una variabile in cui salvare il livello di difficoltà
+var difficulty = parseInt(prompt('Inserisci il livello di difficoltà: 0 - Facile, 1 - Medio, 2 - Difficile','0 - 1 - 2'));
+
+// Creo una variabile che memorizza l'estremo superiore dell'intervallo del gioco, variabile a seconda dell'input dell'utente
+var upperBound;
+
+// Utilizzo lo switch case per le varie opzioni
+switch (difficulty) {
+    case 0:
+        upperBound = 100;
+        break;
+    case 1:
+        upperBound = 80;
+        break;
+    case 2:
+        upperBound = 50;
+        break;
+    default: alert('Scegli uno dei seguenti numeri: 0, 1, 2');
+}
+console.log('Difficoltà:',difficulty);
+
 // 1. Genero 16 numeri casuali nell'intervallo [1,100] e li salvo in un array, usando la funzione che controlla eventuali ripetizioni. In questo caso utilizzo il ciclo while perché, pur conoscendo la lunghezza finale dell'array, non so quante volte verrà effettuato il ciclo, per via del controllo sulle ripetizioni che blocca il push del numero doppione
+
 var arrPc = [];
 while (arrPc.length < 16) {
-    var numPc = numRandom(1,100);
+    var numPc = numRandom(1,upperBound);
     if (!checkNum(arrPc,numPc)) {
         arrPc.push(numPc);
     }
@@ -25,20 +49,21 @@ console.log('Array PC:',arrPc);
 // 2. Inserimento numeri digitati dall'utente in un array. Scelgo di usare il ciclo do-while perché non conosco a priori la lunghezza dell'array dell'utente (si interrompe non appena trova una bomba) ma devo comunque inserire almeno un elemento per effettuare il controllo con l'array del pc
 
 // Inizializzo l'array dell'utente e la variabile che terrà conto del suo punteggio ottenuto (numero di volte di inserimenti consentiti)
+
 var arrUser = [];
 var punteggio = 0;
 do {
-    // Chiedo all'utente (100-16) numeri nell'intervallo [1,100]
-    var numUser = parseInt(prompt('Inserisci un numero da 1 a 100','1-100'));
+    // Chiedo all'utente (upperBound-16) numeri nell'intervallo [1,upperBound]
+    var numUser = parseInt(prompt('Inserisci un numero da 1 a ' + upperBound,'1-' + upperBound));
     // Effettuo il controllo che siano all'interno dell'intervallo stabilito e che non siano stati precedentemente inseriti
-    if (!checkNum(arrUser,numUser) && numUser >= 1 && numUser <= 100) {
+    if (!checkNum(arrUser,numUser) && numUser >= 1 && numUser <= upperBound) {
         arrUser.push(numUser);
         punteggio++;
     }   else {
-        alert('Sono ammessi solo numeri nell\'intervallo [1,100] che non hai già inserito');
+        alert('Sono ammessi solo numeri nell\'intervallo [1,' + upperBound + '] che non hai già inserito');
     }
 // fino a quando non raggiungo la lunghezza max dell'array dell'utente o il numero inserito corrisponde a un elemento dell'array del pc (bomba!)
-} while (arrUser.length < 84 && !checkNum(arrPc,numUser));
+} while (arrUser.length < (upperBound - 16) && !checkNum(arrPc,numUser));
 
 console.log('Array utente:',arrUser);
 
