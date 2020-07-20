@@ -34,7 +34,7 @@ switch (difficulty) {
 }
 console.log('Difficoltà:',difficulty);
 
-// 1. Genero 16 numeri casuali nell'intervallo [1,100] e li salvo in un array, usando la funzione che controlla eventuali ripetizioni. In questo caso utilizzo il ciclo while perché, pur conoscendo la lunghezza finale dell'array, non so quante volte verrà effettuato il ciclo, per via del controllo sulle ripetizioni che blocca il push del numero doppione
+// 1. Genero 16 numeri casuali nell'intervallo [1,upperBound] e li salvo in un array, usando la funzione che controlla eventuali ripetizioni. In questo caso utilizzo il ciclo while perché, pur conoscendo la lunghezza finale dell'array, non so quante volte verrà effettuato il ciclo, per via del controllo sulle ripetizioni che blocca il push del numero doppione
 
 var arrPc = [];
 while (arrPc.length < 16) {
@@ -46,16 +46,16 @@ while (arrPc.length < 16) {
 
 console.log('Array PC:',arrPc);
 
-// 2. Inserimento numeri digitati dall'utente in un array. Scelgo di usare il ciclo do-while perché non conosco a priori la lunghezza dell'array dell'utente (si interrompe non appena trova una bomba) ma devo comunque inserire almeno un elemento per effettuare il controllo con l'array del pc
+// 2. Inserimento dei numeri digitati dall'utente in un array. Scelgo di usare il ciclo do-while perché non conosco a priori la lunghezza dell'array dell'utente (si interrompe non appena trova una bomba) ma devo comunque inserire almeno un elemento per effettuare il controllo con l'array del pc
 
-// Inizializzo l'array dell'utente e la variabile che terrà conto del suo punteggio ottenuto (numero di volte di inserimenti consentiti)
+// Inizializzo l'array dell'utente e la variabile che terrà conto del punteggio ottenuto (numero di volte di inserimenti consentiti)
 
 var arrUser = [];
 var punteggio = 0;
 do {
     // Chiedo all'utente (upperBound-16) numeri nell'intervallo [1,upperBound]
     var numUser = parseInt(prompt('Inserisci un numero da 1 a ' + upperBound,'1-' + upperBound));
-    // Effettuo il controllo che siano all'interno dell'intervallo stabilito e che non siano stati precedentemente inseriti
+    // Effettuo il controllo che siano all'interno dell'intervallo stabilito e che non siano stati precedentemente inseriti. A esito positivo inserisco il numero nell'array dell'utente e aggiorno la variabile del punteggio
     if (!checkNum(arrUser,numUser) && numUser >= 1 && numUser <= upperBound) {
         arrUser.push(numUser);
         punteggio++;
